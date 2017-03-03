@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contact} from './contact';
+import { ContactService } from './contact.service';
 
 @Component({
   selector: 'my-app',
@@ -10,29 +11,25 @@ import { Contact} from './contact';
       <span class="badge">{{contact.id}}</span>{{contact.name}}
     </li>
   </ul>
-  <div *ngIf="selectedContact">
-  <h2>{{selectedContact.name}} details!</h2>
-    <div><label>id: </label>{{selectedContact.id}}</div>
-    <div>
-      <label>name: </label>
-      <input [(ngModel)]="selectedContact.name" placeholder="name"/>
-    </div>
-  </div>
+  <my-contact-details [contact]="selectedContact"></my-contact-details>
   `,
-  styleUrls: [ 'styles/app.component.css']
+  styleUrls: [ 'styles/app.component.css'],
 })
 
-export class AppComponent  { 
+export class AppComponent implements OnInit  { 
   title = "My contacts";
-  contacts = CONTACTS;
+  contacts : Contact[];
   selectedContact: Contact;
   onSelect(contact: Contact): void{
     this.selectedContact=contact;
   }
+  constructor(private contactService: ContactService){ 
+  }
+  getContacts(): void{
+    this.contacts=this.contactService.getContacts();
+    //this.contactService.getContacts().then(contacts => this.contacts = contacts);
+  }
+  ngOnInit(): void {
+    this.getContacts();
+  }
 }
-
-const CONTACTS: Contact[] =[
-  {id: 1, name: 'TestName1'},
-  {id: 2, name: 'TestName2'},
-  {id: 3, name: 'TestName3'},
-]
