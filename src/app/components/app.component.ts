@@ -25,11 +25,18 @@ export class AppComponent implements OnInit  {
   }
   constructor(private contactService: ContactService){ 
   }
+
+  errorMessage: string;
   getContacts(): void{
-    this.contacts=this.contactService.getContacts();
-    //this.contactService.getContacts().then(contacts => this.contacts = contacts);
+    //this.contacts=this.contactService.getContacts();
+    this.contactService
+      .getContacts()
+      .subscribe(contacts=> this.contacts=contacts,
+                  error =>  this.errorMessage = <any>error);
   }
+
   ngOnInit(): void {
-    this.getContacts();
+    this.getContacts();    
   }
 }
+
