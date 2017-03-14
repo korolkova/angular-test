@@ -1,18 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Contact} from '../contact';
 import { ContactService } from '../services/contact.service';
 
 @Component({
   selector: 'my-app',
-  template:`
-  <h2>My contacts</h2>
-  <ul class="contacts">
-    <li *ngFor="let contact of contacts" (click)="onSelect(contact)" [class.selected]="contact === selectedContact">
-      <span class="badge">{{contact.id}}</span>{{contact.name}}
-    </li>
-  </ul>
-  <my-contact-details [contact]="selectedContact"></my-contact-details>
-  `,
+  templateUrl: 'app/components/app.component.html',
   styleUrls: [ 'styles/app.component.css'],
 })
 
@@ -20,23 +12,30 @@ export class AppComponent implements OnInit  {
   title = "My contacts";
   contacts : Contact[];
   selectedContact: Contact;
-  onSelect(contact: Contact): void{
-    this.selectedContact=contact;
-  }
-  constructor(private contactService: ContactService){ 
-  }
-
   errorMessage: string;
+  
+  constructor(private contactService: ContactService){}
+  
   getContacts(): void{
     //this.contacts=this.contactService.getContacts();
     this.contactService
       .getContacts()
-      .subscribe(contacts=> this.contacts=contacts,
-                  error =>  this.errorMessage = <any>error);
+      .then(contacts=> this.contacts=contacts,
+            error =>  this.errorMessage = <any>error);
   }
 
   ngOnInit(): void {
     this.getContacts();    
+  }
+
+  onSelect(contact: Contact): void{
+    this.selectedContact=contact;
+  }
+
+  save(contact: Contact): void{
+    this.contactService.addContact(contact)
+    .then(contacts=> console.log('Успех'),
+            error =>  this.errorMessage = <any>error);
   }
 }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Headers, Http} from '@angular/http';
 
-/*import 'rxjs/add/operator/toPromise';*/
+import 'rxjs/add/operator/toPromise';//
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -15,31 +15,39 @@ import { Contact} from '../contact';
 
 @Injectable()
 export class ContactService {
-    //private headers = new Headers({'Content-Type': 'application/json'});
-    private contactsUrl='http://localhost:8080/users';
-    //private contactsUrl2='http://localhost:8080/users/18';
+    private headers = new Headers({'Content-Type': 'application/json'});
+    private contactsGetAllUsersUrl='http://localhost:8080/users';
+    private contactsAddUserUrl='http://localhost:8080/users/save';
     constructor(private http:Http){}
-
-    getContacts(){
-    return this.http.get(this.contactsUrl)
-                    .map(response => response.json());
-  }
-    /*getContacts(): Promise<Contact[]> {
-        return this.http.get(this.contactsUrl)
+    getContacts(): Promise<Contact[]> {
+        return this.http.get(this.contactsGetAllUsersUrl)
         .toPromise()
-        .then(response => response.json().data as Contact[])
+        .then(response => response.json())
         .catch(this.handleError);
-    }*/
-
-    /*private handleError(error: any): Promise<any>{
-        console.error('An error occurred', error);
+    }
+    private handleError(error: any): Promise<any>{
+        console.error('An error occurred2', error);
         return Promise.reject(error.massage||error);
-    }*/
-    
+    }   
     /*getContacts(): Contact[] {
         return CONTACTS;
     }*/
     /*getContacts(): Promise<Contact[]> {
         return Promise.resolve(CONTACTS);
     }*/
+    addContact(contact: Contact): Promise<number> {
+        return this.http
+            .post(this.contactsAddUserUrl, JSON.stringify({name: contact.name, email: contact.email}), { headers: this.headers })
+            .toPromise()
+            .then(response => response.status)
+                .catch(this.handleError);
+    }
+
+    updateContact(contact: Contact): Promise<number> {
+        return this.http
+            .post(this.contactsAddUserUrl, JSON.stringify({id: contact.id, name: contact.name, email: contact.email}), { headers: this.headers })
+            .toPromise()
+            .then(response => response.status)
+                .catch(this.handleError);
+    }
 }

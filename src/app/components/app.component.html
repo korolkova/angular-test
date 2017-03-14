@@ -1,0 +1,7 @@
+<h2>My contacts</h2>
+<ul class="contacts">
+    <li *ngFor="let contact of contacts" (click)="onSelect(contact)" [class.selected]="contact === selectedContact">
+      <span class="badge">{{contact.id}}</span>{{contact.name}}{{contact.email}}
+    </li>
+</ul>
+<my-contact-details [contact]="selectedContact" (save)="save($event)"></my-contact-details>
