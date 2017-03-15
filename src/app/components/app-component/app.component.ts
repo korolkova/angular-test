@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { Contact} from '../contact';
-import { ContactService } from '../services/contact.service';
+import { Contact} from '../../contact';
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/components/app.component.html',
-  //styleUrls: [ 'app/components/app.component.css'],
+  templateUrl: 'app/components/app-component/app.component.html',
+  styleUrls: [ 'app/components/app-component/app.component.css'],
 })
 
 export class AppComponent implements OnInit  { 

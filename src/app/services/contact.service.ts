@@ -29,12 +29,6 @@ export class ContactService {
         console.error('An error occurred2', error);
         return Promise.reject(error.massage||error);
     }   
-    /*getContacts(): Contact[] {
-        return CONTACTS;
-    }*/
-    /*getContacts(): Promise<Contact[]> {
-        return Promise.resolve(CONTACTS);
-    }*/
     addContact(contact: Contact): Promise<number> {
         return this.http.post(this.contactsAddUserUrl, JSON.stringify({id: contact.id, name: contact.name, email: contact.email}), { headers: this.headers })
             .toPromise()

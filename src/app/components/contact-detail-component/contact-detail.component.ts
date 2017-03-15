@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter,  } from '@angular/core';
-import { Contact} from '../contact';
+import { Contact} from '../../contact';
 
 @Component({
   selector: 'my-contact-details',
-  templateUrl: 'app/components/contact-detail.component.html',
+  templateUrl: 'app/components/contact-detail-component/contact-detail.component.html',
 })
 
 export class ContactDetailComponent{
