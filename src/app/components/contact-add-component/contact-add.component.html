@@ -1,0 +1,13 @@
+<div #newContact>
+<form role="form">
+  <div class="form-group">
+    <label>Имя</label>
+    <input [(ngModel)]="newContact.name" name="name" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input [(ngModel)]="newContact.email" name="email" class="form-control">
+  </div>
+  <div><button (click)="onSave(newContact)" class="btn btn-primary">Сохранить</button></div>
+</form>
+</div>

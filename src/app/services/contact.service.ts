@@ -18,6 +18,7 @@ export class ContactService {
     private headers = new Headers({'Content-Type': 'application/json'});
     private contactsGetAllUsersUrl='http://localhost:8080/users';
     private contactsAddUserUrl='http://localhost:8080/users/save';
+    private contactsRemoveUserUrl='http://localhost:8080/users/remove/';
     constructor(private http:Http){}
     getContacts(): Promise<Contact[]> {
         return this.http.get(this.contactsGetAllUsersUrl)
@@ -29,8 +30,20 @@ export class ContactService {
         console.error('An error occurred2', error);
         return Promise.reject(error.massage||error);
     }   
-    addContact(contact: Contact): Promise<number> {
+    updateContact(contact: Contact): Promise<number> {
         return this.http.post(this.contactsAddUserUrl, JSON.stringify({id: contact.id, name: contact.name, email: contact.email}), { headers: this.headers })
+            .toPromise()
+            .then(response => response.status)
+            .catch(this.handleError);
+    }
+    removeContact(id: number): Promise<number> {
+        return this.http.delete('http://localhost:8080/users/remove/' + id)
+            .toPromise()
+            .then(response => response.status)
+            .catch(this.handleError);
+    }
+    addContact(contact: Contact): Promise<number> {
+        return this.http.post(this.contactsAddUserUrl, JSON.stringify({name: contact.name, email: contact.email}), { headers: this.headers })
             .toPromise()
             .then(response => response.status)
             .catch(this.handleError);
