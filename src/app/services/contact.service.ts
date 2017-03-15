@@ -21,9 +21,9 @@ export class ContactService {
     constructor(private http:Http){}
     getContacts(): Promise<Contact[]> {
         return this.http.get(this.contactsGetAllUsersUrl)
-        .toPromise()
-        .then(response => response.json())
-        .catch(this.handleError);
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
     }
     private handleError(error: any): Promise<any>{
         console.error('An error occurred2', error);
@@ -36,18 +36,9 @@ export class ContactService {
         return Promise.resolve(CONTACTS);
     }*/
     addContact(contact: Contact): Promise<number> {
-        return this.http
-            .post(this.contactsAddUserUrl, JSON.stringify({name: contact.name, email: contact.email}), { headers: this.headers })
+        return this.http.post(this.contactsAddUserUrl, JSON.stringify({id: contact.id, name: contact.name, email: contact.email}), { headers: this.headers })
             .toPromise()
             .then(response => response.status)
-                .catch(this.handleError);
-    }
-
-    updateContact(contact: Contact): Promise<number> {
-        return this.http
-            .post(this.contactsAddUserUrl, JSON.stringify({id: contact.id, name: contact.name, email: contact.email}), { headers: this.headers })
-            .toPromise()
-            .then(response => response.status)
-                .catch(this.handleError);
+            .catch(this.handleError);
     }
 }

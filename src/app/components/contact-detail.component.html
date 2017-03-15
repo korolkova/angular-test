@@ -1,9 +1,0 @@
-<div *ngIf="contact">
-  <h2>{{contact.name}} details!</h2>
-  <div><label>id: </label>{{contact.id}}</div>
-  <div>
-      <label>name: </label>
-      <input [(ngModel)]="contact.name" placeholder="name"/>
-      <button (click)="onSave(contact)">Сохранить изменеия</button>
-  </div>
-</div>

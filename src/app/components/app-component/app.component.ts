@@ -5,7 +5,7 @@ import { ContactService } from '../services/contact.service';
 @Component({
   selector: 'my-app',
   templateUrl: 'app/components/app.component.html',
-  styleUrls: [ 'styles/app.component.css'],
+  //styleUrls: [ 'app/components/app.component.css'],
 })
 
 export class AppComponent implements OnInit  { 
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit  {
 
   save(contact: Contact): void{
     this.contactService.addContact(contact)
-    .then(contacts=> console.log('Успех'),
+    .then(contacts=> {console.log('Успех'), this.getContacts()},
             error =>  this.errorMessage = <any>error);
   }
 }
