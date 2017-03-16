@@ -17,11 +17,11 @@ import { Contact} from '../contact';
 export class ContactService {
     private headers = new Headers({'Content-Type': 'application/json'});
     private contactsGetAllUsersUrl='http://localhost:8080/users';
-    private contactsAddUserUrl='http://localhost:8080/users/save';
+    private contactsAddUserUrl='http://192.168.1.231:8080/users/save';
     private contactsRemoveUserUrl='http://localhost:8080/users/remove/';
     constructor(private http:Http){}
     getContacts(): Promise<Contact[]> {
-        return this.http.get(this.contactsGetAllUsersUrl)
+        return this.http.get(this.contactsGetAllUsersUrl, { headers: this.headers })
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);

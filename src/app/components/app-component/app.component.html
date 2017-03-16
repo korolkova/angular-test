@@ -5,13 +5,13 @@
   <div class="table-responsive">
     <table class="table table-striped table-bordered tablecust">
       <thead>
-        <tr><td>Имя</td><td>Email</td><td></td><td></td></tr>
+        <tr><td>Имя</td><td>Email</td><td style="width: 20px;"></td><td style="width: 20px;"></td></tr>
       </thead>
       <tr *ngFor="let contact of contacts" (click)="onSelect(contact)">
         <td>{{contact.name}}</td>
         <td>{{contact.email}}</td>
-        <td (click)="modalUpdate.open()"><span class="glyphicon glyphicon-pencil"></span></td>
-        <td (click)="modalRemove.open()"><span class="glyphicon glyphicon-trash"></span></td>
+        <td (click)="modalUpdate.open()"><span class="glyphicon glyphicon-pencil" style="width: 20px;"></span></td>
+        <td (click)="modalRemove.open()"><span class="glyphicon glyphicon-trash" style="width: 20px;"></span></td>
       </tr>
     </table>
   </div>
@@ -26,7 +26,7 @@
 </modal>
 <modal #modalAdd>
     <modal-header [show-close]="true">
-        <h4 class="modal-title">Сохранение контакта</h4>
+        <h4 class="modal-title">Добавление контакта</h4>
     </modal-header>
     <modal-body>
         <my-contact-add (add)="add($event)"></my-contact-add>
