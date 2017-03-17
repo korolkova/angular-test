@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Ng2Bs3ModalModule} from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { AppComponent }  from '../components/app-component/app.component';
 import { ContactDetailComponent } from '../components/contact-detail-component/contact-detail.component';

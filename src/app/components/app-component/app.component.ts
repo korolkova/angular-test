@@ -1,7 +1,7 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { Contact} from '../../contact';
 import { ContactService } from '../../services/contact.service';
-import {Ng2Bs3ModalModule} from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @Component({
@@ -15,6 +15,12 @@ export class AppComponent implements OnInit  {
   contacts : Contact[];
   selectedContact: Contact;
   errorMessage: string;
+
+  @ViewChild('modalUpdate')
+  modalUpdate: ModalComponent;
+  @ViewChild('modalAdd')
+  modalAdd: ModalComponent;
+  
   
   constructor(private contactService: ContactService){}
   
@@ -36,21 +42,37 @@ export class AppComponent implements OnInit  {
 
   save(contact: Contact): void{
     this.contactService.updateContact(contact)
-    .then(contacts=> {console.log('Редактирование'), this.getContacts()},
+    .then(contacts=> {this.getContacts(),  this.closeModalUpdate()},
             error =>  this.errorMessage = <any>error);
   }
 
   remove(id: number): void{
     this.contactService
       .removeContact(id)
-      .then(contacts=> {console.log('Удаление'), this.getContacts()},
+      .then(contacts=> {this.getContacts()},
             error =>  this.errorMessage = <any>error);
   }
 
   add(contact: Contact): void{
     this.contactService.addContact(contact)
-    .then(contacts=> {console.log('Добавление'), this.getContacts()},
+    .then(contacts=> {this.getContacts(), this.closeModalAdd()},
             error =>  this.errorMessage = <any>error);
+  }
+
+  closeModalUpdate(): void{
+    this.modalUpdate.close();
+  }
+
+  openModalUpdate(): void{
+    this.modalUpdate.open();
+  }
+
+  closeModalAdd(): void{
+    this.modalAdd.close();
+  }
+
+  openModalAdd(): void{
+    this.modalAdd.open();
   }
 }
 

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">Контакты
-  <button (click)="modalAdd.open()" class="btn btn-primary button">Добавить контакт</button>
+  <button (click)="openModalAdd()" class="btn btn-primary button">Добавить контакт</button>
   </div>
   <div class="table-responsive">
     <table class="table table-striped table-bordered tablecust">
@@ -10,7 +10,7 @@
       <tr *ngFor="let contact of contacts" (click)="onSelect(contact)">
         <td>{{contact.name}}</td>
         <td>{{contact.email}}</td>
-        <td (click)="modalUpdate.open()"><span class="glyphicon glyphicon-pencil" style="width: 20px;"></span></td>
+        <td (click)="openModalUpdate()"><span class="glyphicon glyphicon-pencil" style="width: 20px;"></span></td>
         <td (click)="modalRemove.open()"><span class="glyphicon glyphicon-trash" style="width: 20px;"></span></td>
       </tr>
     </table>
